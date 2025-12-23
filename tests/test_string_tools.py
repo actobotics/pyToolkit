@@ -1,11 +1,11 @@
 import unittest
 
 from pytoolkit.string_tools import (
-    slugify,
-    to_snake_case,
-    to_camel_case,
-    random_string,
     extract_numbers,
+    random_string,
+    slugify,
+    to_camel_case,
+    to_snake_case,
     truncate,
 )
 

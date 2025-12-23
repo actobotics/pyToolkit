@@ -26,7 +26,9 @@ class Environment:
         return self.name.lower() in {"prod", "production"}
 
 
-def get_environment(var_name: str = "APP_ENV", default: Optional[str] = "development") -> Environment:
+def get_environment(
+    var_name: str = "APP_ENV", default: Optional[str] = "development"
+) -> Environment:
     """Create an Environment instance from an environment variable."""
     name = os.getenv(var_name, default or "development")
     return Environment(name=name)

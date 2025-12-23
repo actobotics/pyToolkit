@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.3.1] - 2025-12-23
+## [0.4.0] - 2025-12-23
+
+### Added
+- Complete code quality improvements with all linters and type checkers enabled
+- Comprehensive type annotations for all modules
 
 ### Changed
 - **Package renamed to `acto-pytoolkit`** for PyPI publication (original name was already taken)
@@ -15,13 +19,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated year to 2025 in CHANGELOG
 - Added actobotics.net website link to README and project URLs
 - Added X/Twitter link (@actoboticsnet) to README
-- Temporarily disabled Black, Ruff, and MyPy checks in CI (to be re-enabled after fixes)
+- Migrated from deprecated `typing.Dict`, `typing.List`, `typing.Tuple`, `typing.Type` to built-in `dict`, `list`, `tuple`, `type`
+- Improved type annotations for better MyPy compatibility
+- Re-enabled Black, Ruff, and MyPy checks in CI
 
 ### Fixed
 - Fixed retry tests by adding `__name__` attribute to Mock objects
 - Fixed logger test file lock issues on Windows by properly closing handlers
 - Fixed timer test tolerance for system overhead
 - Lowered coverage requirement to 70% (from 80%)
+- Fixed all Black formatting issues (25 files reformatted)
+- Fixed all Ruff linting errors (8 errors resolved)
+- Fixed all MyPy type annotation errors (15 errors resolved)
+- Improved exception handling with `raise ... from None` pattern
 
 ## [0.3.0] - 2025-12-23
 
@@ -87,8 +97,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CLI framework with basic commands
 - Basic test coverage
 
-[Unreleased]: https://github.com/actobotics/pyToolkit/compare/v0.3.1...HEAD
-[0.3.1]: https://github.com/actobotics/pyToolkit/compare/v0.3.0...v0.3.1
+[Unreleased]: https://github.com/actobotics/pyToolkit/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/actobotics/pyToolkit/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/actobotics/pyToolkit/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/actobotics/pyToolkit/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/actobotics/pyToolkit/releases/tag/v0.1.0

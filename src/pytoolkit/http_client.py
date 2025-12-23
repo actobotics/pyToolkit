@@ -1,7 +1,6 @@
-from typing import Any, Dict, Optional, Union
-
 import logging
 import time
+from typing import Any, Optional, Union
 
 import requests
 from requests import Response, Session
@@ -21,7 +20,7 @@ class HttpClient:
         backoff_factor: float = 0.3,
         logger: Optional[logging.Logger] = None,
         session: Optional[Session] = None,
-        default_headers: Optional[Dict[str, str]] = None,
+        default_headers: Optional[dict[str, str]] = None,
         auth: Optional[tuple] = None,
     ) -> None:
         self.base_url = base_url.rstrip("/") if base_url else None
@@ -30,7 +29,7 @@ class HttpClient:
         self.backoff_factor = backoff_factor
         self.logger = logger or logging.getLogger(self.__class__.__name__)
         self.session: Session = session or requests.Session()
-        
+
         if default_headers:
             self.session.headers.update(default_headers)
         if auth:
@@ -44,7 +43,7 @@ class HttpClient:
         """Support context manager usage."""
         return self
 
-    def __exit__(self, exc_type, exc, tb) -> None:
+    def __exit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
         self.close()
 
     def _request(
@@ -68,7 +67,7 @@ class HttpClient:
                 if attempt >= self.max_retries:
                     self.logger.error("HTTP %s %s failed: %s", method, full_url, exc)
                     raise
-                delay = self.backoff_factor * (2 ** attempt)
+                delay = self.backoff_factor * (2**attempt)
                 self.logger.warning(
                     "HTTP %s %s failed on attempt %s, retrying in %.2f seconds",
                     method,
@@ -79,14 +78,14 @@ class HttpClient:
                 time.sleep(delay)
                 attempt += 1
 
-    def get(self, url: str, params: Optional[Dict[str, Any]] = None, **kwargs: Any) -> Response:
+    def get(self, url: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Response:
         return self._request("GET", url, params=params, **kwargs)
 
     def post(
         self,
         url: str,
-        data: Optional[Union[Dict[str, Any], str]] = None,
-        json: Optional[Dict[str, Any]] = None,
+        data: Optional[Union[dict[str, Any], str]] = None,
+        json: Optional[dict[str, Any]] = None,
         **kwargs: Any,
     ) -> Response:
         return self._request("POST", url, data=data, json=json, **kwargs)
@@ -94,8 +93,8 @@ class HttpClient:
     def put(
         self,
         url: str,
-        data: Optional[Union[Dict[str, Any], str]] = None,
-        json: Optional[Dict[str, Any]] = None,
+        data: Optional[Union[dict[str, Any], str]] = None,
+        json: Optional[dict[str, Any]] = None,
         **kwargs: Any,
     ) -> Response:
         return self._request("PUT", url, data=data, json=json, **kwargs)
@@ -106,8 +105,8 @@ class HttpClient:
     def patch(
         self,
         url: str,
-        data: Optional[Union[Dict[str, Any], str]] = None,
-        json: Optional[Dict[str, Any]] = None,
+        data: Optional[Union[dict[str, Any], str]] = None,
+        json: Optional[dict[str, Any]] = None,
         **kwargs: Any,
     ) -> Response:
         return self._request("PATCH", url, data=data, json=json, **kwargs)

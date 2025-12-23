@@ -1,7 +1,7 @@
+import json
 import os
 import tempfile
 import unittest
-import json
 
 from pytoolkit.config_loader import ConfigLoader
 

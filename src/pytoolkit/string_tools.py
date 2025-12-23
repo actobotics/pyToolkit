@@ -1,8 +1,6 @@
 import random
 import re
 import string
-from typing import List
-
 
 SLUG_INVALID = re.compile(r"[^a-z0-9]+")
 
@@ -36,9 +34,9 @@ def random_string(length: int = 16) -> str:
     return "".join(random.choice(alphabet) for _ in range(length))
 
 
-def extract_numbers(value: str) -> List[float]:
+def extract_numbers(value: str) -> list[float]:
     """Extract all numbers (integer and float) from a string."""
-    numbers: List[float] = []
+    numbers: list[float] = []
     for match in re.finditer(r"[-+]?\d*\.\d+|[-+]?\d+", value):
         numbers.append(float(match.group(0)))
     return numbers

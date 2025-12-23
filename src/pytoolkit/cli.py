@@ -1,12 +1,11 @@
 import argparse
-from typing import Callable, Dict, Optional
+from typing import Callable, Optional
 
-from .logger import get_logger
-from .env import get_environment
 from .config_loader import ConfigLoader
+from .env import get_environment
+from .logger import get_logger
 
-
-_COMMANDS: Dict[str, Callable[[argparse.Namespace], int]] = {}
+_COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {}
 
 
 def command(name: Optional[str] = None) -> Callable:
@@ -26,7 +25,9 @@ def command(name: Optional[str] = None) -> Callable:
 
 def build_parser() -> argparse.ArgumentParser:
     """Build an argument parser with a sub command for each registered command."""
-    parser = argparse.ArgumentParser(prog="pytoolkit", description="pytoolkit command line interface")
+    parser = argparse.ArgumentParser(
+        prog="pytoolkit", description="pytoolkit command line interface"
+    )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     for name, func in _COMMANDS.items():

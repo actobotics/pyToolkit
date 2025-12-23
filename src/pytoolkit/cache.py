@@ -4,7 +4,7 @@ import threading
 import time
 from dataclasses import dataclass, field
 from functools import wraps
-from typing import Any, Callable, Dict, Optional, Tuple
+from typing import Any, Callable, Optional
 
 
 @dataclass
@@ -14,7 +14,7 @@ class SimpleCache:
     This cache is safe for basic multi thread use and is meant for small data.
     """
 
-    _store: Dict[str, Tuple[Any, Optional[float]]] = field(default_factory=dict)
+    _store: dict[str, tuple[Any, Optional[float]]] = field(default_factory=dict)
     _lock: threading.Lock = field(default_factory=threading.Lock)
 
     def set(self, key: str, value: Any, ttl: Optional[float] = None) -> None:
@@ -69,7 +69,7 @@ def cached(ttl: Optional[float] = None, key_func: Optional[Callable[..., str]] =
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             if key_func:
                 cache_key = key_func(*args, **kwargs)
             else:
@@ -86,5 +86,7 @@ def cached(ttl: Optional[float] = None, key_func: Optional[Callable[..., str]] =
             result = func(*args, **kwargs)
             _global_cache.set(cache_key, result, ttl=ttl)
             return result
+
         return wrapper
+
     return decorator

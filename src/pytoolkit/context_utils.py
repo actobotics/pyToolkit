@@ -1,49 +1,47 @@
 """Utilities for working with nested dictionaries and context objects."""
-from typing import Any, Dict, Iterable, Mapping, Optional
+
+from collections.abc import Iterable, Mapping
+from typing import Any
 
 
-def merge_dicts(*dicts: Mapping[str, Any]) -> Dict[str, Any]:
+def merge_dicts(*dicts: Mapping[str, Any]) -> dict[str, Any]:
     """Shallow merge multiple dictionaries into a new dictionary.
 
     Later dictionaries override earlier ones.
     """
-    result: Dict[str, Any] = {}
+    result: dict[str, Any] = {}
     for d in dicts:
         result.update(d)
     return result
 
 
-def deep_merge(*dicts: Mapping[str, Any]) -> Dict[str, Any]:
+def deep_merge(*dicts: Mapping[str, Any]) -> dict[str, Any]:
     """Deeply merge multiple dictionaries.
 
     Nested dictionaries are merged recursively, other values are overwritten by
     later dictionaries.
     """
-    result: Dict[str, Any] = {}
+    result: dict[str, Any] = {}
     for d in dicts:
         for key, value in d.items():
-            if (
-                key in result
-                and isinstance(result[key], dict)
-                and isinstance(value, dict)
-            ):
-                result[key] = deep_merge(result[key], value)  # type: ignore[arg-type]
+            if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+                result[key] = deep_merge(result[key], value)
             else:
                 result[key] = value
     return result
 
 
-def select_keys(source: Mapping[str, Any], keys: Iterable[str]) -> Dict[str, Any]:
+def select_keys(source: Mapping[str, Any], keys: Iterable[str]) -> dict[str, Any]:
     """Return a new dictionary containing only the given keys."""
     return {k: source[k] for k in keys if k in source}
 
 
-def get_nested(data: Dict[str, Any], path: str, default: Any = None, separator: str = ".") -> Any:
+def get_nested(data: dict[str, Any], path: str, default: Any = None, separator: str = ".") -> Any:
     """Get a value from a nested dictionary using dot notation.
 
     Parameters
     ----------
-    data : Dict[str, Any]
+    data : dict[str, Any]
         The dictionary to query
     path : str
         Dot-separated path to the value (e.g., "user.address.city")
@@ -76,14 +74,14 @@ def get_nested(data: Dict[str, Any], path: str, default: Any = None, separator: 
     return current
 
 
-def set_nested(data: Dict[str, Any], path: str, value: Any, separator: str = ".") -> None:
+def set_nested(data: dict[str, Any], path: str, value: Any, separator: str = ".") -> None:
     """Set a value in a nested dictionary using dot notation.
 
     Creates intermediate dictionaries as needed.
 
     Parameters
     ----------
-    data : Dict[str, Any]
+    data : dict[str, Any]
         The dictionary to modify
     path : str
         Dot-separated path to set (e.g., "user.address.city")
@@ -110,12 +108,14 @@ def set_nested(data: Dict[str, Any], path: str, value: Any, separator: str = "."
     current[keys[-1]] = value
 
 
-def flatten_dict(data: Dict[str, Any], parent_key: str = "", separator: str = ".") -> Dict[str, Any]:
+def flatten_dict(
+    data: dict[str, Any], parent_key: str = "", separator: str = "."
+) -> dict[str, Any]:
     """Flatten a nested dictionary into a single-level dictionary.
 
     Parameters
     ----------
-    data : Dict[str, Any]
+    data : dict[str, Any]
         The nested dictionary to flatten
     parent_key : str, optional
         Prefix for keys (used internally for recursion)
@@ -124,7 +124,7 @@ def flatten_dict(data: Dict[str, Any], parent_key: str = "", separator: str = ".
 
     Returns
     -------
-    Dict[str, Any]
+    dict[str, Any]
         Flattened dictionary with dot-separated keys
 
     Examples
@@ -133,7 +133,7 @@ def flatten_dict(data: Dict[str, Any], parent_key: str = "", separator: str = ".
     >>> flatten_dict(data)
     {'user.name': 'Alice', 'user.address.city': 'NYC'}
     """
-    items: Dict[str, Any] = {}
+    items: dict[str, Any] = {}
 
     for key, value in data.items():
         new_key = f"{parent_key}{separator}{key}" if parent_key else key
@@ -146,19 +146,19 @@ def flatten_dict(data: Dict[str, Any], parent_key: str = "", separator: str = ".
     return items
 
 
-def unflatten_dict(data: Dict[str, Any], separator: str = ".") -> Dict[str, Any]:
+def unflatten_dict(data: dict[str, Any], separator: str = ".") -> dict[str, Any]:
     """Unflatten a dictionary with dot-separated keys into a nested dictionary.
 
     Parameters
     ----------
-    data : Dict[str, Any]
+    data : dict[str, Any]
         The flattened dictionary
     separator : str, optional
         Separator used in keys (default: ".")
 
     Returns
     -------
-    Dict[str, Any]
+    dict[str, Any]
         Nested dictionary
 
     Examples
@@ -167,7 +167,7 @@ def unflatten_dict(data: Dict[str, Any], separator: str = ".") -> Dict[str, Any]
     >>> unflatten_dict(data)
     {'user': {'name': 'Alice', 'address': {'city': 'NYC'}}}
     """
-    result: Dict[str, Any] = {}
+    result: dict[str, Any] = {}
 
     for key, value in data.items():
         set_nested(result, key, value, separator)

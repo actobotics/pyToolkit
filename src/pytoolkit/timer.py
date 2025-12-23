@@ -2,7 +2,7 @@ import logging
 import time
 from contextlib import ContextDecorator
 from functools import wraps
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 
 
 class Timer(ContextDecorator):
@@ -30,15 +30,13 @@ class Timer(ContextDecorator):
         self.start = time.perf_counter()
         return self
 
-    def __exit__(self, *exc) -> None:
+    def __exit__(self, *exc: Any) -> None:
         self.duration = time.perf_counter() - self.start
         if self.logger:
             self.logger.info("%s took %.4f seconds", self.label, self.duration)
 
 
-def time_function(
-    label: Optional[str] = None, logger: Optional[logging.Logger] = None
-) -> Callable:
+def time_function(label: Optional[str] = None, logger: Optional[logging.Logger] = None) -> Callable:
     """Decorator that measures the runtime of a function.
 
     Parameters
@@ -52,7 +50,7 @@ def time_function(
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             effective_label = label or func.__name__
             start = time.perf_counter()
             try:
@@ -61,5 +59,7 @@ def time_function(
                 duration = time.perf_counter() - start
                 active_logger = logger or logging.getLogger(__name__)
                 active_logger.info("%s took %.4f seconds", effective_label, duration)
+
         return wrapper
+
     return decorator

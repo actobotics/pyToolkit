@@ -1,11 +1,9 @@
 """Tests for the async_http_client module."""
+
 import asyncio
 import unittest
 
 try:
-    import aiohttp
-    from aiohttp import web
-
     from pytoolkit.async_http_client import AsyncHttpClient
 
     AIOHTTP_AVAILABLE = True
@@ -39,7 +37,7 @@ class TestAsyncHttpClient(unittest.TestCase):
     async def async_test_json_parsing(self):
         """Test JSON parsing from response."""
         # This is a placeholder - in real tests you'd mock the response
-        async with AsyncHttpClient(base_url=self.base_url) as client:
+        async with AsyncHttpClient(base_url=self.base_url):
             # Create a mock response
             class MockResponse:
                 async def json(self):
@@ -70,4 +68,3 @@ class TestAsyncHttpClient(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

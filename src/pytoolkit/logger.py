@@ -11,10 +11,10 @@ class _ColorFormatter(logging.Formatter):
     """
 
     COLORS = {
-        logging.DEBUG: "\033[37m",   # white
-        logging.INFO: "\033[36m",    # cyan
-        logging.WARNING: "\033[33m", # yellow
-        logging.ERROR: "\033[31m",   # red
+        logging.DEBUG: "\033[37m",  # white
+        logging.INFO: "\033[36m",  # cyan
+        logging.WARNING: "\033[33m",  # yellow
+        logging.ERROR: "\033[31m",  # red
         logging.CRITICAL: "\033[41m\033[37m",  # white on red background
     }
     RESET = "\033[0m"
@@ -64,9 +64,7 @@ def get_logger(
         # Optional file handler
         if to_file:
             file_handler = logging.FileHandler(to_file)
-            file_formatter = logging.Formatter(
-                "%(asctime)s\t%(levelname)s\t%(name)s\t%(message)s"
-            )
+            file_formatter = logging.Formatter("%(asctime)s\t%(levelname)s\t%(name)s\t%(message)s")
             file_handler.setFormatter(file_formatter)
             logger.addHandler(file_handler)
 

@@ -1,7 +1,7 @@
-from typing import Iterable, List, Sequence
+from collections.abc import Iterable, Sequence
 
 
-def moving_average(values: Sequence[float], window: int) -> List[float]:
+def moving_average(values: Sequence[float], window: int) -> list[float]:
     """Compute a simple moving average over a sequence of values.
 
     The output has the same length as the input. Values before the first full
@@ -9,7 +9,7 @@ def moving_average(values: Sequence[float], window: int) -> List[float]:
     """
     if window <= 0:
         raise ValueError("window must be positive")
-    result: List[float] = []
+    result: list[float] = []
     acc = 0.0
     for i, v in enumerate(values):
         acc += v
@@ -20,7 +20,7 @@ def moving_average(values: Sequence[float], window: int) -> List[float]:
     return result
 
 
-def normalize(values: Iterable[float]) -> List[float]:
+def normalize(values: Iterable[float]) -> list[float]:
     """Normalize values to the range 0 to 1.
 
     If all values are the same, they are mapped to 0.5.
@@ -46,7 +46,9 @@ def percentage_change(old: float, new: float) -> float:
     return (new - old) / old * 100.0
 
 
-def scale_value(value: float, old_min: float, old_max: float, new_min: float, new_max: float) -> float:
+def scale_value(
+    value: float, old_min: float, old_max: float, new_min: float, new_max: float
+) -> float:
     """Scale a value from one range into another."""
     if old_max == old_min:
         raise ZeroDivisionError("old_max and old_min must not be equal")

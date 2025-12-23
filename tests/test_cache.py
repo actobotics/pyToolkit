@@ -1,5 +1,5 @@
-import unittest
 import time
+import unittest
 
 from pytoolkit.cache import SimpleCache, cached
 

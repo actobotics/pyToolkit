@@ -1,4 +1,5 @@
 """Tests for the math_tools module."""
+
 import unittest
 
 from pytoolkit.math_tools import (
@@ -14,7 +15,7 @@ class TestMathTools(unittest.TestCase):
         """Test basic moving average calculation."""
         values = [1.0, 2.0, 3.0, 4.0, 5.0]
         result = moving_average(values, window=3)
-        
+
         expected = [1.0, 1.5, 2.0, 3.0, 4.0]
         self.assertEqual(result, expected)
 
@@ -22,14 +23,14 @@ class TestMathTools(unittest.TestCase):
         """Test moving average with window size 1."""
         values = [1.0, 2.0, 3.0]
         result = moving_average(values, window=1)
-        
+
         self.assertEqual(result, values)
 
     def test_moving_average_large_window(self):
         """Test moving average with window larger than data."""
         values = [1.0, 2.0, 3.0]
         result = moving_average(values, window=10)
-        
+
         expected = [1.0, 1.5, 2.0]
         self.assertEqual(result, expected)
 
@@ -37,7 +38,7 @@ class TestMathTools(unittest.TestCase):
         """Test moving average with invalid window."""
         with self.assertRaises(ValueError):
             moving_average([1.0, 2.0], window=0)
-        
+
         with self.assertRaises(ValueError):
             moving_average([1.0, 2.0], window=-1)
 
@@ -45,7 +46,7 @@ class TestMathTools(unittest.TestCase):
         """Test basic normalization."""
         values = [0.0, 5.0, 10.0]
         result = normalize(values)
-        
+
         expected = [0.0, 0.5, 1.0]
         self.assertEqual(result, expected)
 
@@ -53,7 +54,7 @@ class TestMathTools(unittest.TestCase):
         """Test normalizing identical values."""
         values = [5.0, 5.0, 5.0]
         result = normalize(values)
-        
+
         expected = [0.5, 0.5, 0.5]
         self.assertEqual(result, expected)
 
@@ -66,7 +67,7 @@ class TestMathTools(unittest.TestCase):
         """Test normalizing negative values."""
         values = [-10.0, 0.0, 10.0]
         result = normalize(values)
-        
+
         expected = [0.0, 0.5, 1.0]
         self.assertEqual(result, expected)
 
@@ -101,7 +102,7 @@ class TestMathTools(unittest.TestCase):
         # Scale 0 from [0, 100] to [50, 150]
         result = scale_value(0.0, 0.0, 100.0, 50.0, 150.0)
         self.assertAlmostEqual(result, 50.0)
-        
+
         # Scale 100 from [0, 100] to [50, 150]
         result = scale_value(100.0, 0.0, 100.0, 50.0, 150.0)
         self.assertAlmostEqual(result, 150.0)
@@ -114,4 +115,3 @@ class TestMathTools(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

@@ -8,7 +8,7 @@ from .crypto_utils import hash_bytes
 
 def read_text(path: str, encoding: str = "utf-8") -> str:
     """Read a text file with the given encoding."""
-    with open(path, "r", encoding=encoding) as f:
+    with open(path, encoding=encoding) as f:
         return f.read()
 
 
@@ -20,7 +20,7 @@ def write_text(path: str, content: str, encoding: str = "utf-8") -> None:
 
 def read_json(path: str, encoding: str = "utf-8") -> Any:
     """Read a JSON file and return the parsed data."""
-    with open(path, "r", encoding=encoding) as f:
+    with open(path, encoding=encoding) as f:
         return json.load(f)
 
 

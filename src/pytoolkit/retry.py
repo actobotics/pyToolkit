@@ -1,12 +1,13 @@
 import logging
 import random
 import time
+from collections.abc import Iterable
 from functools import wraps
-from typing import Any, Callable, Iterable, Optional, Tuple, Type
+from typing import Any, Callable, Optional
 
 
 def retry(
-    exceptions: Iterable[Type[BaseException]] = (Exception,),
+    exceptions: Iterable[type[BaseException]] = (Exception,),
     max_attempts: int = 3,
     initial_delay: float = 0.5,
     backoff_factor: float = 2.0,
@@ -34,7 +35,7 @@ def retry(
         Optional logger for messages. If not provided, the module logger is used.
     """
 
-    exc_tuple: Tuple[Type[BaseException], ...] = tuple(exceptions)  # type: ignore
+    exc_tuple: tuple[type[BaseException], ...] = tuple(exceptions)
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
@@ -67,5 +68,7 @@ def retry(
                     )
                     time.sleep(effective_delay)
                     delay *= backoff_factor
+
         return wrapper
+
     return decorator

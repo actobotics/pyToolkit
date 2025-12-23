@@ -2,18 +2,19 @@
 
 This module requires the 'async' extra: pip install pytoolkit[async]
 """
+
 import asyncio
 import logging
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 try:
     import aiohttp
-    from aiohttp import ClientSession, ClientResponse, ClientTimeout
+    from aiohttp import ClientResponse, ClientSession, ClientTimeout
 except ImportError:
     raise ImportError(
         "aiohttp is required for async_http_client. "
         "Install it with: pip install pytoolkit[async]"
-    )
+    ) from None
 
 
 class AsyncHttpClient:
@@ -35,7 +36,7 @@ class AsyncHttpClient:
         backoff_factor: float = 0.3,
         logger: Optional[logging.Logger] = None,
         session: Optional[ClientSession] = None,
-        default_headers: Optional[Dict[str, str]] = None,
+        default_headers: Optional[dict[str, str]] = None,
     ) -> None:
         """Initialize the async HTTP client.
 
@@ -53,7 +54,7 @@ class AsyncHttpClient:
             Logger instance for logging
         session : Optional[ClientSession]
             Existing aiohttp session to use
-        default_headers : Optional[Dict[str, str]]
+        default_headers : Optional[dict[str, str]]
             Default headers to include in all requests
         """
         self.base_url = base_url.rstrip("/") if base_url else None
@@ -74,7 +75,7 @@ class AsyncHttpClient:
             )
         return self
 
-    async def __aexit__(self, exc_type, exc, tb) -> None:
+    async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
         """Exit async context manager."""
         await self.close()
 
@@ -131,7 +132,7 @@ class AsyncHttpClient:
                 attempt += 1
 
     async def get(
-        self, url: str, params: Optional[Dict[str, Any]] = None, **kwargs: Any
+        self, url: str, params: Optional[dict[str, Any]] = None, **kwargs: Any
     ) -> ClientResponse:
         """Make a GET request."""
         return await self._request("GET", url, params=params, **kwargs)
@@ -139,8 +140,8 @@ class AsyncHttpClient:
     async def post(
         self,
         url: str,
-        data: Optional[Union[Dict[str, Any], str]] = None,
-        json: Optional[Dict[str, Any]] = None,
+        data: Optional[Union[dict[str, Any], str]] = None,
+        json: Optional[dict[str, Any]] = None,
         **kwargs: Any,
     ) -> ClientResponse:
         """Make a POST request."""
@@ -149,8 +150,8 @@ class AsyncHttpClient:
     async def put(
         self,
         url: str,
-        data: Optional[Union[Dict[str, Any], str]] = None,
-        json: Optional[Dict[str, Any]] = None,
+        data: Optional[Union[dict[str, Any], str]] = None,
+        json: Optional[dict[str, Any]] = None,
         **kwargs: Any,
     ) -> ClientResponse:
         """Make a PUT request."""
@@ -159,8 +160,8 @@ class AsyncHttpClient:
     async def patch(
         self,
         url: str,
-        data: Optional[Union[Dict[str, Any], str]] = None,
-        json: Optional[Dict[str, Any]] = None,
+        data: Optional[Union[dict[str, Any], str]] = None,
+        json: Optional[dict[str, Any]] = None,
         **kwargs: Any,
     ) -> ClientResponse:
         """Make a PATCH request."""
@@ -181,5 +182,5 @@ class AsyncHttpClient:
     @staticmethod
     async def text(response: ClientResponse) -> str:
         """Get response text."""
-        return await response.text()
-
+        result: str = await response.text()
+        return result

@@ -3,12 +3,12 @@
 The package exposes selected helpers directly for convenience.
 """
 
+from . import context_utils, serialization
 from .cache import SimpleCache, cached
 from .config_loader import ConfigLoader
 from .http_client import HttpClient
 from .logger import configure_from_env, get_logger
 from .timer import Timer, time_function
-from . import context_utils, serialization
 
 # Async module is optional (requires aiohttp)
 try:

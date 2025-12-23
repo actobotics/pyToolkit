@@ -2,12 +2,13 @@ import logging
 import threading
 import time
 from dataclasses import dataclass, field
-from typing import Callable, Dict, Optional
+from typing import Any, Callable, Optional
 
 
 @dataclass
 class ScheduledTask:
     """Represents a scheduled job with a fixed interval."""
+
     interval: float
     function: Callable
     args: tuple = field(default_factory=tuple)
@@ -28,7 +29,7 @@ class TaskScheduler:
 
     def __init__(self, tick: float = 0.5, logger: Optional[logging.Logger] = None) -> None:
         self.tick = tick
-        self._tasks: Dict[str, ScheduledTask] = {}
+        self._tasks: dict[str, ScheduledTask] = {}
         self._lock = threading.Lock()
         self._thread: Optional[threading.Thread] = None
         self._stop_event = threading.Event()
@@ -54,8 +55,8 @@ class TaskScheduler:
         name: str,
         interval: float,
         function: Callable,
-        *args,
-        **kwargs,
+        *args: Any,
+        **kwargs: Any,
     ) -> ScheduledTask:
         """Add or replace a scheduled task.
 
@@ -92,6 +93,8 @@ class TaskScheduler:
                     try:
                         task.function(*task.args, **task.kwargs)
                     except Exception as exc:
-                        self.logger.exception("Error while executing scheduled task %s: %s", name, exc)
+                        self.logger.exception(
+                            "Error while executing scheduled task %s: %s", name, exc
+                        )
                     task._next_run = now + task.interval
             time.sleep(self.tick)

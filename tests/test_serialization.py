@@ -1,4 +1,5 @@
 """Tests for the serialization module."""
+
 import json
 import os
 import tempfile
@@ -13,7 +14,7 @@ class TestSerialization(unittest.TestCase):
         with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
             json.dump({"key": "value", "number": 42}, f)
             json_file = f.name
-        
+
         try:
             data = serialization.load_json(json_file)
             self.assertEqual(data["key"], "value")
@@ -24,17 +25,17 @@ class TestSerialization(unittest.TestCase):
     def test_save_json(self):
         """Test saving JSON to file."""
         data = {"name": "test", "items": [1, 2, 3]}
-        
+
         with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
             json_file = f.name
-        
+
         try:
             serialization.save_json(json_file, data)
-            
+
             # Read back and verify
-            with open(json_file, "r") as f:
+            with open(json_file) as f:
                 loaded = json.load(f)
-            
+
             self.assertEqual(loaded, data)
         finally:
             if os.path.exists(json_file):
@@ -49,11 +50,11 @@ class TestSerialization(unittest.TestCase):
           - two
           - three
         """
-        
+
         with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".yaml") as f:
             f.write(yaml_content)
             yaml_file = f.name
-        
+
         try:
             data = serialization.load_yaml(yaml_file)
             self.assertEqual(data["name"], "test")
@@ -64,13 +65,13 @@ class TestSerialization(unittest.TestCase):
     def test_save_yaml(self):
         """Test saving YAML to file."""
         data = {"name": "test", "count": 5}
-        
+
         with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".yaml") as f:
             yaml_file = f.name
-        
+
         try:
             serialization.save_yaml(yaml_file, data)
-            
+
             # Read back and verify
             loaded = serialization.load_yaml(yaml_file)
             self.assertEqual(loaded, data)
@@ -81,4 +82,3 @@ class TestSerialization(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

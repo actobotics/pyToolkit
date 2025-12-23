@@ -1,4 +1,5 @@
 """Tests for the crypto_utils module."""
+
 import unittest
 
 from pytoolkit.crypto_utils import hash_bytes, hash_text, random_token
@@ -9,7 +10,7 @@ class TestCryptoUtils(unittest.TestCase):
         """Test hashing bytes with SHA256."""
         data = b"hello world"
         result = hash_bytes(data, algorithm="sha256")
-        
+
         self.assertEqual(len(result), 64)  # SHA256 produces 64 hex characters
         self.assertIsInstance(result, str)
         # Verify deterministic hashing
@@ -19,7 +20,7 @@ class TestCryptoUtils(unittest.TestCase):
         """Test hashing bytes with SHA3-256."""
         data = b"test data"
         result = hash_bytes(data, algorithm="sha3_256")
-        
+
         self.assertEqual(len(result), 64)
         self.assertIsInstance(result, str)
 
@@ -27,7 +28,7 @@ class TestCryptoUtils(unittest.TestCase):
         """Test hashing bytes with BLAKE2b."""
         data = b"test data"
         result = hash_bytes(data, algorithm="blake2b")
-        
+
         self.assertEqual(len(result), 128)  # BLAKE2b produces 128 hex characters
         self.assertIsInstance(result, str)
 
@@ -35,14 +36,14 @@ class TestCryptoUtils(unittest.TestCase):
         """Test that invalid algorithm raises ValueError."""
         with self.assertRaises(ValueError) as cm:
             hash_bytes(b"data", algorithm="invalid")  # type: ignore
-        
+
         self.assertIn("Unsupported hash algorithm", str(cm.exception))
 
     def test_hash_text_default(self):
         """Test hashing text with default encoding."""
         text = "hello world"
         result = hash_text(text)
-        
+
         self.assertEqual(len(result), 64)
         self.assertIsInstance(result, str)
         # Should match hashing the encoded bytes
@@ -53,14 +54,14 @@ class TestCryptoUtils(unittest.TestCase):
         text = "café"
         result_utf8 = hash_text(text, encoding="utf-8")
         result_latin1 = hash_text(text, encoding="latin-1")
-        
+
         # Different encodings should produce different hashes
         self.assertNotEqual(result_utf8, result_latin1)
 
     def test_random_token_default_length(self):
         """Test random token generation with default length."""
         token = random_token()
-        
+
         self.assertEqual(len(token), 32)
         self.assertIsInstance(token, str)
         # Check that it's hexadecimal
@@ -83,13 +84,12 @@ class TestCryptoUtils(unittest.TestCase):
         """Test that invalid length raises ValueError."""
         with self.assertRaises(ValueError) as cm:
             random_token(length=0)
-        
+
         self.assertIn("length must be positive", str(cm.exception))
-        
+
         with self.assertRaises(ValueError):
             random_token(length=-5)
 
 
 if __name__ == "__main__":
     unittest.main()
-

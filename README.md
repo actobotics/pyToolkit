@@ -4,7 +4,7 @@
 
 The focus is on simple building blocks: configuration handling, logging, timing, HTTP helpers, caching, string helpers, and more.
 
-Current version: **0.3.1**
+Current version: **0.4.0**
 
 🌐 **Website**: [www.actobotics.net](https://www.actobotics.net)  
 🐦 **X/Twitter**: [@actoboticsnet](https://x.com/actoboticsnet)

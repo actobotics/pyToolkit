@@ -25,17 +25,14 @@ jobs:
           pip install black ruff mypy types-requests types-PyYAML
           pip install -e .
       
-      # Temporarily disabled - files need formatting
-      # - name: Run Black
-      #   run: black --check src tests
+      - name: Run Black
+        run: black --check src tests
       
-      # Temporarily disabled - need to fix linting issues first
-      # - name: Run Ruff
-      #   run: ruff check src tests
+      - name: Run Ruff
+        run: ruff check src tests
       
-      # Temporarily disabled - need to add missing type annotations
-      # - name: Run MyPy
-      #   run: mypy src/pytoolkit
+      - name: Run MyPy
+        run: mypy src/pytoolkit
 
   test:
     name: Test Python ${{ matrix.python-version }}

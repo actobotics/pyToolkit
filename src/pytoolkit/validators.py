@@ -3,7 +3,6 @@ import re
 import uuid
 from urllib.parse import urlparse
 
-
 # More robust email regex following RFC 5322 (simplified)
 EMAIL_REGEX = re.compile(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
@@ -29,7 +28,7 @@ def is_email(value: str, strict: bool = False) -> bool:
     """
     if not EMAIL_REGEX.match(value):
         return False
-    
+
     if strict:
         # Additional checks for strict mode
         if len(value) > 254:  # RFC 5321
@@ -39,7 +38,7 @@ def is_email(value: str, strict: bool = False) -> bool:
             return False
         if ".." in value:  # No consecutive dots
             return False
-    
+
     return True
 
 
@@ -63,10 +62,10 @@ def is_url(value: str, require_tld: bool = True) -> bool:
     parsed = urlparse(value)
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
         return False
-    
+
     if require_tld and "." not in parsed.netloc:
         return False
-    
+
     return True
 
 

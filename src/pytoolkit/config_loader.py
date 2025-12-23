@@ -1,24 +1,24 @@
 import json
 import os
 from dataclasses import dataclass, field
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from dotenv import load_dotenv
 
 try:
-    import yaml  # type: ignore
+    import yaml
 except ImportError:  # pragma: no cover
-    yaml = None  # type: ignore
+    yaml = None  # type: ignore[assignment]
 
 try:
     import tomllib  # Python 3.11+
 except ModuleNotFoundError:  # pragma: no cover
-    tomllib = None  # type: ignore
+    tomllib = None
 
 try:
-    import tomli  # type: ignore
+    import tomli
 except ImportError:  # pragma: no cover
-    tomli = None  # type: ignore
+    tomli = None
 
 
 @dataclass
@@ -37,7 +37,7 @@ class ConfigLoader:
     yaml_file: Optional[str] = None
     toml_file: Optional[str] = None
     prefix: Optional[str] = None
-    _data: Dict[str, Any] = field(default_factory=dict, init=False)
+    _data: dict[str, Any] = field(default_factory=dict, init=False)
 
     def __post_init__(self) -> None:
         if self.env_file:
@@ -46,7 +46,7 @@ class ConfigLoader:
 
         # Load from JSON
         if self.json_file and os.path.exists(self.json_file):
-            with open(self.json_file, "r", encoding="utf-8") as f:
+            with open(self.json_file, encoding="utf-8") as f:
                 content = json.load(f)
             self._merge_dict(content)
 
@@ -54,7 +54,7 @@ class ConfigLoader:
         if self.yaml_file and os.path.exists(self.yaml_file):
             if yaml is None:
                 raise RuntimeError("PyYAML is not installed but yaml_file is specified.")
-            with open(self.yaml_file, "r", encoding="utf-8") as f:
+            with open(self.yaml_file, encoding="utf-8") as f:
                 content = yaml.safe_load(f)
             if isinstance(content, dict):
                 self._merge_dict(content)
@@ -82,7 +82,7 @@ class ConfigLoader:
             else:
                 self._data[key] = value
 
-    def _merge_dict(self, other: Dict[str, Any]) -> None:
+    def _merge_dict(self, other: dict[str, Any]) -> None:
         """Merge a dictionary into the internal config dictionary.
 
         Nested dictionaries are flattened using dots.
@@ -141,6 +141,6 @@ class ConfigLoader:
         # Fallback: not recognized, return default
         return default
 
-    def as_dict(self) -> Dict[str, Any]:
+    def as_dict(self) -> dict[str, Any]:
         """Return a copy of the configuration data as a dictionary."""
         return dict(self._data)

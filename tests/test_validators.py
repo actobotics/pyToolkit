@@ -1,14 +1,14 @@
 import unittest
 
 from pytoolkit.validators import (
-    is_email,
-    is_url,
-    is_uuid,
     has_extension,
+    is_email,
     is_ipv4,
     is_ipv6,
-    min_length,
+    is_url,
+    is_uuid,
     max_length,
+    min_length,
 )
 
 

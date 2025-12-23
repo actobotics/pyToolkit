@@ -2,22 +2,19 @@ import hashlib
 import secrets
 from typing import Literal
 
-
 HashAlgorithm = Literal["sha256", "sha3_256", "blake2b"]
 
 
 def hash_bytes(data: bytes, algorithm: HashAlgorithm = "sha256") -> str:
     """Hash raw bytes and return a hex encoded digest."""
     if algorithm == "sha256":
-        h = hashlib.sha256()
+        return hashlib.sha256(data).hexdigest()
     elif algorithm == "sha3_256":
-        h = hashlib.sha3_256()
+        return hashlib.sha3_256(data).hexdigest()
     elif algorithm == "blake2b":
-        h = hashlib.blake2b()
+        return hashlib.blake2b(data).hexdigest()
     else:
         raise ValueError(f"Unsupported hash algorithm: {algorithm}")
-    h.update(data)
-    return h.hexdigest()
 
 
 def hash_text(text: str, algorithm: HashAlgorithm = "sha256", encoding: str = "utf-8") -> str:

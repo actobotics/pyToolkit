@@ -1,8 +1,7 @@
 """Tests for the http_client module."""
+
 import unittest
 from unittest.mock import Mock, patch
-
-import requests
 
 from pytoolkit.http_client import HttpClient
 
@@ -24,8 +23,8 @@ class TestHttpClient(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        response = self.client.get("/users")
-        
+        self.client.get("/users")
+
         mock_request.assert_called_once()
         args, kwargs = mock_request.call_args
         self.assertEqual(args[0], "GET")
@@ -39,8 +38,8 @@ class TestHttpClient(unittest.TestCase):
         mock_request.return_value = mock_response
 
         data = {"name": "John"}
-        response = self.client.post("/users", json=data)
-        
+        self.client.post("/users", json=data)
+
         args, kwargs = mock_request.call_args
         self.assertEqual(args[0], "POST")
         self.assertEqual(kwargs.get("json"), data)
@@ -52,8 +51,8 @@ class TestHttpClient(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        response = self.client.put("/users/1", json={"name": "Jane"})
-        
+        self.client.put("/users/1", json={"name": "Jane"})
+
         args, kwargs = mock_request.call_args
         self.assertEqual(args[0], "PUT")
 
@@ -64,8 +63,8 @@ class TestHttpClient(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        response = self.client.patch("/users/1", json={"email": "jane@example.com"})
-        
+        self.client.patch("/users/1", json={"email": "jane@example.com"})
+
         args, kwargs = mock_request.call_args
         self.assertEqual(args[0], "PATCH")
 
@@ -76,8 +75,8 @@ class TestHttpClient(unittest.TestCase):
         mock_response.status_code = 204
         mock_request.return_value = mock_response
 
-        response = self.client.delete("/users/1")
-        
+        self.client.delete("/users/1")
+
         args, kwargs = mock_request.call_args
         self.assertEqual(args[0], "DELETE")
 
@@ -85,7 +84,7 @@ class TestHttpClient(unittest.TestCase):
         """Test JSON response parsing."""
         mock_response = Mock()
         mock_response.json.return_value = {"key": "value"}
-        
+
         result = HttpClient.json(mock_response)
         self.assertEqual(result, {"key": "value"})
 
@@ -93,7 +92,7 @@ class TestHttpClient(unittest.TestCase):
         """Test JSON parsing error handling."""
         mock_response = Mock()
         mock_response.json.side_effect = ValueError("Invalid JSON")
-        
+
         with self.assertRaises(ValueError) as cm:
             HttpClient.json(mock_response)
         self.assertIn("Failed to decode JSON", str(cm.exception))
@@ -108,7 +107,7 @@ class TestHttpClient(unittest.TestCase):
         """Test setting default headers."""
         headers = {"Authorization": "Bearer token123"}
         client = HttpClient(base_url=self.base_url, default_headers=headers)
-        
+
         self.assertEqual(client.session.headers["Authorization"], "Bearer token123")
         client.close()
 
@@ -116,11 +115,10 @@ class TestHttpClient(unittest.TestCase):
         """Test basic authentication."""
         auth = ("user", "pass")
         client = HttpClient(base_url=self.base_url, auth=auth)
-        
+
         self.assertEqual(client.session.auth, auth)
         client.close()
 
 
 if __name__ == "__main__":
     unittest.main()
-

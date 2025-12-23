@@ -1,11 +1,12 @@
 """Serialization utilities for JSON, YAML, and TOML."""
-from typing import Any
+
 import json
+from typing import Any
 
 try:
-    import yaml  # type: ignore
+    import yaml
 except ImportError:  # pragma: no cover
-    yaml = None  # type: ignore
+    yaml = None  # type: ignore[assignment]
 
 
 def to_json(data: Any, indent: int = 2) -> str:
@@ -20,7 +21,7 @@ def from_json(text: str) -> Any:
 
 def load_json(filepath: str, encoding: str = "utf-8") -> Any:
     """Load JSON data from a file."""
-    with open(filepath, "r", encoding=encoding) as f:
+    with open(filepath, encoding=encoding) as f:
         return json.load(f)
 
 
@@ -48,7 +49,7 @@ def load_yaml(filepath: str, encoding: str = "utf-8") -> Any:
     """Load YAML data from a file."""
     if yaml is None:
         raise RuntimeError("PyYAML is not installed")
-    with open(filepath, "r", encoding=encoding) as f:
+    with open(filepath, encoding=encoding) as f:
         return yaml.safe_load(f)
 
 
