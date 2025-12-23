@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pytoolkit"
-version = "0.3.0"
+version = "0.3.1"
 description = "A collection of helper utilities for Python projects."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -20,7 +20,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/actobotics/pyToolkit"
+Homepage = "https://www.actobotics.net"
 Repository = "https://github.com/actobotics/pyToolkit"
 Documentation = "https://github.com/actobotics/pyToolkit#readme"
 Issues = "https://github.com/actobotics/pyToolkit/issues"

@@ -4,7 +4,9 @@
 
 The focus is on simple building blocks: configuration handling, logging, timing, HTTP helpers, caching, string helpers, and more.
 
-Current version: **0.3.0**
+Current version: **0.3.1**
+
+🌐 **Website**: [www.actobotics.net](https://www.actobotics.net)
 
 [![CI](https://github.com/actobotics/pyToolkit/workflows/CI/badge.svg)](https://github.com/actobotics/pyToolkit/actions)
 [![codecov](https://codecov.io/gh/actobotics/pyToolkit/branch/main/graph/badge.svg)](https://codecov.io/gh/actobotics/pyToolkit)
@@ -151,15 +153,6 @@ The project follows a simple semantic versioning scheme:
 - Pre-commit hooks (Black, Ruff)
 - MyPy strict type checking
 - Automated testing on Python 3.9-3.12
-
-## Documentation
-
-Full documentation is available at: [https://pytoolkit.readthedocs.io/](https://pytoolkit.readthedocs.io/)
-
-- [Installation Guide](https://pytoolkit.readthedocs.io/en/latest/installation.html)
-- [Quick Start](https://pytoolkit.readthedocs.io/en/latest/quickstart.html)
-- [API Reference](https://pytoolkit.readthedocs.io/en/latest/api/index.html)
-- [Contributing Guide](https://pytoolkit.readthedocs.io/en/latest/contributing.html)
 
 ## Changelog
 

@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath("../src"))
 project = "pytoolkit"
 copyright = "2025, pytoolkit contributors"
 author = "pytoolkit contributors"
-release = "0.3.0"
+release = "0.3.1"
 version = "0.3"
 
 # -- General configuration ---------------------------------------------------
