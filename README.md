@@ -26,7 +26,7 @@ Current version: **0.3.1**
 ### Basic Installation
 
 ```bash
-pip install pytoolkit
+pip install acto-pytoolkit
 ```
 
 ### From Source
@@ -41,16 +41,16 @@ pip install -e .
 
 ```bash
 # For async HTTP client support
-pip install pytoolkit[async]
+pip install acto-pytoolkit[async]
 
 # For development (testing, linting, type checking)
-pip install pytoolkit[dev]
+pip install acto-pytoolkit[dev]
 
 # For building documentation
-pip install pytoolkit[docs]
+pip install acto-pytoolkit[docs]
 
 # Install everything
-pip install pytoolkit[all]
+pip install acto-pytoolkit[all]
 ```
 
 ## Usage overview

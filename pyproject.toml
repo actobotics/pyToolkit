@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pytoolkit"
+name = "acto-pytoolkit"
 version = "0.3.1"
 description = "A collection of helper utilities for Python projects."
 readme = "README.md"
