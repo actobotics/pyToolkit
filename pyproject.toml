@@ -13,14 +13,17 @@ keywords = ["utilities", "helpers", "toolkit", "library"]
 authors = [
   {name = "pytoolkit contributors"}
 ]
-homepage = "https://github.com/actobotics/pyToolkit"
-repository = "https://github.com/actobotics/pyToolkit"
-documentation = "https://github.com/actobotics/pyToolkit#readme"
 dependencies = [
   "requests>=2.31.0",
   "python-dotenv>=1.0.0",
   "PyYAML>=6.0.0"
 ]
+
+[project.urls]
+Homepage = "https://github.com/actobotics/pyToolkit"
+Repository = "https://github.com/actobotics/pyToolkit"
+Documentation = "https://github.com/actobotics/pyToolkit#readme"
+Issues = "https://github.com/actobotics/pyToolkit/issues"
 
 [project.optional-dependencies]
 dev = [
