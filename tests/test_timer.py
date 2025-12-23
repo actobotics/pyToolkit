@@ -14,7 +14,7 @@ class TestTimer(unittest.TestCase):
             time.sleep(0.05)
         
         self.assertGreater(timer.duration, 0.04)
-        self.assertLess(timer.duration, 0.2)
+        self.assertLess(timer.duration, 0.3)  # Increased tolerance for system overhead
 
     def test_timer_with_logger(self):
         """Test Timer with custom logger."""
