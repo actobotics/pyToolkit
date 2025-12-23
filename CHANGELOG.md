@@ -9,16 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.3.1] - 2025-12-23
 
+### Changed
+- **Package renamed to `acto-pytoolkit`** for PyPI publication (original name was already taken)
+- Installation command is now: `pip install acto-pytoolkit`
+- Updated year to 2025 in CHANGELOG
+- Added actobotics.net website link to README and project URLs
+- Added X/Twitter link (@actoboticsnet) to README
+- Temporarily disabled Black, Ruff, and MyPy checks in CI (to be re-enabled after fixes)
+
 ### Fixed
 - Fixed retry tests by adding `__name__` attribute to Mock objects
 - Fixed logger test file lock issues on Windows by properly closing handlers
 - Fixed timer test tolerance for system overhead
 - Lowered coverage requirement to 70% (from 80%)
-
-### Changed
-- Updated year to 2025 in CHANGELOG
-- Added actobotics.net website link to README and project URLs
-- Temporarily disabled Black, Ruff, and MyPy checks in CI (to be re-enabled after fixes)
 
 ## [0.3.0] - 2025-12-23
 
