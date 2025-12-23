@@ -6,7 +6,8 @@ The focus is on simple building blocks: configuration handling, logging, timing,
 
 Current version: **0.3.1**
 
-🌐 **Website**: [www.actobotics.net](https://www.actobotics.net)
+🌐 **Website**: [www.actobotics.net](https://www.actobotics.net)  
+🐦 **X/Twitter**: [@actoboticsnet](https://x.com/actoboticsnet)
 
 [![CI](https://github.com/actobotics/pyToolkit/workflows/CI/badge.svg)](https://github.com/actobotics/pyToolkit/actions)
 [![codecov](https://codecov.io/gh/actobotics/pyToolkit/branch/main/graph/badge.svg)](https://codecov.io/gh/actobotics/pyToolkit)
